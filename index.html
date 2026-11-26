@@ -1,1 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte à rebours et Liste de Noël</title>
+    <style>
+        :root {
+            --rouge-noel: #c0392b;
+            --rouge-fonce: #96281b;
+            --vert-sapin: #1e8449;
+            --or: #f1c40f;
+            --fond: #fdfbf7;
+            --texte: #2c3e50;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--fond);
+            color: var(--texte);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* En-tête et Compte à rebours */
+        header {
+            background: linear-gradient(135deg, var(--rouge-noel), var(--rouge-fonce));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0 0 20px 0;
+            font-size: 2.2em;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 75px;
+            backdrop-filter: blur(5px);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--or);
+        }
+
+        .time-box small {
+            text-transform: uppercase;
+            font-size: 0.75em;
+            letter-spacing: 1px;
+        }
+
+        /* Formulaire d'ajout */
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--vert-sapin);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr auto;
+            gap: 10px;
+        }
+
+        @media (max-width: 650px) {
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--vert-sapin);
+        }
+
+        button.btn-add {
+            background-color: var(--vert-sapin);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button.btn-add:hover {
+            background-color: #145a32;
+        }
+
+        /* Liste des cadeaux */
+        .gift-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .gift-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .gift-item:last-child {
+            border-bottom: none;
+        }
+
+        .gift-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .gift-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .gift-author {
+            font-size: 0.85em;
+            background-color: #e8f5e9;
+            color: var(--vert-sapin);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            align-self: flex-start;
+        }
+
+        .gift-title {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .gift-link {
+            color: var(--rouge-noel);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .gift-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .btn-delete:hover {
+            background-color: #fdecea;
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Section Décompte -->
+    <header>
+        <h1>🎄 Compte à rebours avant Noël 🎅</h1>
+        <div class="countdown" id="countdown">
+            <div class="time-box"><span id="days">00</span><small>Jours</small></div>
+            <div class="time-box"><span id="hours">00</span><small>Heures</small></div>
+            <div class="time-box"><span id="minutes">00</span><small>Minutes</small></div>
+            <div class="time-box"><span id="seconds">00</span><small>Secondes</small></div>
+        </div>
+    </header>
+
+    <!-- Section Formulaire -->
+    <section class="card">
+        <h2>🎁 Ajouter une idée de cadeau</h2>
+        <form id="gift-form" class="form-group">
+            <input type="text" id="author" placeholder="Votre prénom" required>
+            <input type="text" id="idea" placeholder="Idée de cadeau..." required>
+            <input type="url" id="link" placeholder="Lien web (optionnel)">
+            <button type="submit" class="btn-add">Ajouter</button>
+        </form>
+    </section>
+
+    <!-- Section Liste -->
+    <section class="card">
+        <h2>📜 La Liste du Père Noël</h2>
+        <ul class="gift-list" id="gift-list">
+            <!-- Les cadeaux s'afficheront ici -->
+        </ul>
+    </section>
+</div>
+
+<script>
+    // 1. GESTION DU COMPTE À REBOURS
+    function updateCountdown() {
+        const now = new Date();
+        let currentYear = now.getFullYear();
+        let christmas = new Date(currentYear, 11, 25); // 11 = Décembre en JS
+
+        // Si Noël est déjà passé cette année, viser l'année suivante
+        if (now.getMonth() === 11 && now.getDate() > 25) {
+            christmas = new Date(currentYear + 1, 11, 25);
+        }
+
+        const diff = christmas - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / 1000 / 60) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+        document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+        document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+        document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 2. GESTION DE LA LISTE DE CADEAUX (Stockage local)
+    const giftForm = document.getElementById('gift-form');
+    const giftList = document.getElementById('gift-list');
+
+    // Charger les cadeaux sauvegardés
+    let gifts = JSON.parse(localStorage.getItem('christmasGifts')) || [];
+
+    function renderGifts() {
+        giftList.innerHTML = '';
+
+        if (gifts.length === 0) {
+            giftList.innerHTML = '<p class="empty-msg">Aucun cadeau dans la liste pour le moment. Soyez le premier !</p>';
+            return;
+        }
+
+        gifts.forEach((gift, index) => {
+            const li = document.createElement('li');
+            li.className = 'gift-item';
+
+            const linkHTML = gift.link 
+                ? `<a href="${gift.link}" target="_blank" rel="noopener noreferrer" class="gift-link">🔗 Voir le produit</a>` 
+                : '';
+
+            li.innerHTML = `
+                <div class="gift-info">
+                    <span class="gift-author">Pour : ${escapeHTML(gift.author)}</span>
+                    <span class="gift-title">${escapeHTML(gift.idea)}</span>
+                    ${linkHTML}
+                </div>
+                <button class="btn-delete" onclick="deleteGift(${index})" title="Supprimer">✖</button>
+            `;
+            giftList.appendChild(li);
+        });
+    }
+
+    // Ajouter un cadeau
+    giftForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const author = document.getElementById('author').value.trim();
+        const idea = document.getElementById('idea').value.trim();
+        const link = document.getElementById('link').value.trim();
+
+        if (author && idea) {
+            gifts.push({ author, idea, link });
+            localStorage.setItem('christmasGifts', JSON.stringify(gifts));
+            renderGifts();
+            giftForm.reset();
+        }
+    });
+
+    // Supprimer un cadeau
+    window.deleteGift = function(index) {
+        gifts.splice(index, 1);
+        localStorage.setItem('christmasGifts', JSON.stringify(gifts));
+        renderGifts();
+    };
+
+    // Sécurité basique contre l'injection HTML
+    function escapeHTML(str) {
+        return str.replace(/[&<>'"]/g, 
+            tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag]));
+    }
+
+    // Affichage initial
+    renderGifts();
+</script>
+
+</body>
+</html>
