@@ -4,25 +4,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>Noël en famille</title>
-        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Kaushan+Script&family=Rubik+Dirt&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
         <style>
             :root {
                 --paper: #FBF7EC;
                 --paper-2: #F4ECD8;
                 --light: #FFFBF0;
                 --chk: #EFC2BE;
-                --red: #B5273A;
+                --red: #A51C30;
                 --ink: #1E4A34;
                 --ink-soft: #4F6656;
                 --gold: #E2B24F;
                 --white: #FFFDF8;
                 --line: #B9C3A8;
-                --lnk: #B5273A;
+                --lnk: #A51C30;
                 --err: #B3261E;
                 color-scheme: light;
-                --brand: "Rubik Dirt","Arial Black",Impact,sans-serif;
-                --script: "Kaushan Script","Brush Script MT",cursive;
-                --sans: "Figtree",system-ui,sans-serif;
+                --brand: "Playfair Display",Georgia,serif;
+                --script: "Great Vibes","Brush Script MT",cursive;
+                --sans: "Lora",Georgia,serif;
                 box-sizing: border-box;
                 padding-top: env(safe-area-inset-top,0px);
                 padding-bottom: env(safe-area-inset-bottom,0px)
@@ -71,7 +71,7 @@
             }
 
             .checker {
-                background: var(--paper-2);
+                background: radial-gradient(circle at 50% 40%,#FFFBF0,var(--paper-2));
                 position: relative;
                 isolation: isolate
             }
@@ -94,7 +94,7 @@
             .top {
                 background: #FBF6EA;
                 color: var(--ink);
-                border-bottom: 3px solid var(--red);
+                border-bottom: 4px double var(--red);
                 position: sticky;
                 top: env(safe-area-inset-top,0px);
                 z-index: 20
@@ -214,10 +214,12 @@
             }
 
             .tile {
-                box-shadow: 0 0 0 3px var(--ink),8px 8px 0 3px var(--gold);
+                outline: 1px solid var(--gold);
+                outline-offset: -12px;
+                box-shadow: 0 0 0 4px var(--white),0 0 0 6px var(--red),0 12px 26px #3a2a1c22;
                 container-type: inline-size;
                 aspect-ratio: 4/3;
-                border-radius: 20px;
+                border-radius: 10px;
                 overflow: hidden;
                 display: grid;
                 place-items: center
@@ -229,7 +231,8 @@
 
             h1.word {
                 font-family: var(--brand);
-                font-weight: 400;
+                font-weight: 700;
+                letter-spacing: .03em;
                 line-height: 1;
                 color: #1E4A34;
                 white-space: nowrap;
@@ -256,11 +259,10 @@
                 display: block;
                 font-family: var(--script);
                 font-size: clamp(1.6rem,7vw,3rem);
-                font-size: 12cqw;
+                font-size: 16cqw;
                 line-height: 1;
-                color: #1E4A34;
-                text-shadow: .045em .055em 0 var(--gold);
-                transform: rotate(-5deg);
+                color: var(--red);
+                transform: rotate(-3deg);
                 margin: .05em 0 0 10%;
                 text-align: center
             }
@@ -326,9 +328,11 @@
 
             .card,.book {
                 background: var(--white);
-                border-radius: 18px;
-                padding: 26px;
-                box-shadow: 0 0 0 3px var(--ink),8px 8px 0 3px var(--gold)
+                border-radius: 10px;
+                padding: 28px;
+                box-shadow: 0 0 0 4px var(--white),0 0 0 6px var(--red),0 12px 26px #3a2a1c22;
+                outline: 1px solid var(--gold);
+                outline-offset: -10px
             }
 
             .book h2,.card h3 {
@@ -351,6 +355,16 @@
                 margin: 6px 0 4px
             }
 
+            body {
+                font-variant-numeric: lining-nums
+            }
+
+            .holly {
+                display: block;
+                width: 96px;
+                margin: 0 0 6px
+            }
+
             .count {
                 display: grid;
                 grid-template-columns: repeat(4,1fr);
@@ -369,7 +383,8 @@
             .count b {
                 display: block;
                 font: 400 clamp(1.8rem,6vw,2.5rem)/1 var(--brand);
-                color: var(--red)
+                color: var(--red);
+                font-variant-numeric: lining-nums
             }
 
             .count span {
@@ -436,7 +451,7 @@
             }
 
             .phead {
-                border-bottom: 3px solid var(--red);
+                border-bottom: 4px double var(--red);
                 background: var(--paper-2);
                 padding: 52px 0 36px
             }
@@ -451,10 +466,9 @@
 
             .phead p {
                 font-family: var(--script);
-                font-size: clamp(1.3rem,3vw,1.7rem);
-                margin-top: 10px;
-                color: var(--ink-soft);
-                text-shadow: .05em .06em 0 var(--gold)
+                font-size: clamp(1.7rem,3.8vw,2.2rem);
+                margin-top: 6px;
+                color: var(--ink-soft)
             }
 
             .band {
@@ -593,7 +607,8 @@
             .score b {
                 display: block;
                 font: 400 2.4rem/1 var(--brand);
-                color: var(--red)
+                color: var(--red);
+                font-variant-numeric: lining-nums
             }
 
             .vb {
@@ -681,7 +696,7 @@
             footer {
                 background: #FBF6EA;
                 color: var(--ink);
-                border-top: 3px solid var(--red);
+                border-top: 4px double var(--red);
                 padding: 34px 0;
                 font-size: .9rem
             }
@@ -689,6 +704,20 @@
     </head>
     <body>
         <div class="banner" id="banner"></div>
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <defs>
+                <path id="hl" d="M0 0L6-6 8-11 16-7 22-12 28-7 36-10 38-5 52 0 38 5 36 10 28 7 22 12 16 7 8 11 6 6Z"/>
+                <g id="holly">
+                    <use href="#hl" transform="translate(60 30) rotate(-25)" fill="#1E4A34"/>
+                    <use href="#hl" transform="translate(60 30) rotate(-155)" fill="#1E4A34"/>
+                    <g fill="#A51C30">
+                        <circle cx="60" cy="33" r="5.5"/>
+                        <circle cx="53" cy="37" r="5"/>
+                        <circle cx="67" cy="37" r="5"/>
+                    </g>
+                </g>
+            </defs>
+        </svg>
         <div class="top">
             <div class="nav">
                 <a class="logo" href="#accueil">NOËL EN FAMILLE</a>
@@ -720,13 +749,20 @@
                                         L
                                     </span>
                                 </h1>
-                                <span class="script">2026 !</span>
+                                <span class="script">en famille !</span>
                             </div>
                         </div>
                         <p class="lead">Les listes de cadeaux et le brunch de Noël, réunis au même endroit pour toute la famille.</p>
+                        <div class="facts">
+                            <span>Listes partagées</span>
+                            <span>Cadeaux en secret</span>
+                            <span>Brunch à voter</span>
                         </div>
                     </div>
                     <div class="book">
+                        <svg class="holly" viewBox="0 0 120 50" aria-hidden="true">
+                            <use href="#holly"/>
+                        </svg>
                         <h2 id="cardT">
                             Plus que <span id="dd">…</span> avant Noël
                         </h2>
@@ -758,6 +794,9 @@
         <section class="page" id="p-listes">
             <div class="phead">
                 <div class="wrap">
+                    <svg class="holly" viewBox="0 0 120 50" aria-hidden="true">
+                        <use href="#holly"/>
+                    </svg>
                     <h2 class="title">Listes de Noël</h2>
                     <p>Chacun note ses envies, les autres s’organisent en toute discrétion.</p>
                 </div>
@@ -781,6 +820,9 @@
         <section class="page" id="p-brunch">
             <div class="phead">
                 <div class="wrap">
+                    <svg class="holly" viewBox="0 0 120 50" aria-hidden="true">
+                        <use href="#holly"/>
+                    </svg>
                     <h2 class="title">Brunch de Noël</h2>
                     <p>Proposez des recettes, votez pour vos préférées : le menu se dessine tout seul.</p>
                 </div>
@@ -817,7 +859,7 @@
         </div>
         <div class="band checker" aria-hidden="true"></div>
         <footer>
-            <div class="wrap">© Noël en famille · Joyeuses fêtes</div>
+            <div class="wrap">© Noël en famille · Merry Christmas &amp; joyeuses fêtes</div>
         </footer>
         <script>
             const $ = id => document.getElementById(id);
